@@ -3,11 +3,9 @@ package com.codegenesis96.pages.flightreservation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class RegistrationPage {
-
-    private WebDriver driver;
+public class RegistrationPage extends AbstractPage{
 
     @FindBy(id = "firstname")
     private WebElement firstnameInput;
@@ -34,8 +32,13 @@ public class RegistrationPage {
     private WebElement registerbutton;
 
     public RegistrationPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
+    }
+
+    @Override
+    public boolean isAt() {
+        this.wait.until(ExpectedConditions.visibilityOf(this.firstnameInput));
+        return this.firstnameInput.isDisplayed();
     }
 
     public void goTo(String url){
